@@ -1,0 +1,12 @@
+[
+ {"cite": "NIST. *SP 800-57 Part 1 Rev. 5, Recommendation for Key Management: Part 1, General.* May 2020. https://doi.org/10.6028/NIST.SP.800-57pt1r5", "anchors": ["NIST's **SP 800-57**, the *Recommendation for Key Management*", "SP 800-57 splits the cryptoperiod of a symmetric key into two parts"]},
+ {"cite": "NIST. *SP 800-57 Part 2 Rev. 1, Recommendation for Key Management: Part 2, Best Practices for Key Management Organizations.* May 2019; and *SP 800-57 Part 3 Rev. 1, Application-Specific Key Management Guidance.* January 2015. https://csrc.nist.gov/", "anchors": ["**Part 2** covers policies, roles and planning for organisations"]},
+ {"cite": "Barker, E., Smid, M., Branstad, D., Chokhani, S. *NIST SP 800-130, A Framework for Designing Cryptographic Key Management Systems.* August 2013. https://doi.org/10.6028/NIST.SP.800-130", "anchors": ["NIST also publishes **SP 800-130**"]},
+ {"cite": "Aviram, N., Schinzel, S., Somorovsky, J., et al. \"DROWN: Breaking TLS using SSLv2.\" USENIX Security 2016. https://drownattack.com/", "anchors": ["The DROWN attack (Chapter 11)"]},
+ {"cite": "IETF. *RFC 5869, HMAC-based Extract-and-Expand Key Derivation Function (HKDF).* 2010. https://www.rfc-editor.org/rfc/rfc5869", "anchors": ["**derive** them with HKDF"]},
+ {"cite": "OWASP CycloneDX. *Cryptography Bill of Materials (CBOM)* (CycloneDX specification, version 1.6 and later). https://cyclonedx.org/capabilities/cbom/", "anchors": ["A **cryptographic bill of materials (CBOM)**"]},
+ {"cite": "PCI Security Standards Council. *PCI DSS v4.0.1*, Requirements 3.6 and 3.7 (key management, dual control, split knowledge). June 2024.", "anchors": ["PCI DSS v4.0.1 Requirements 3.6 and 3.7"]},
+ {"cite": "ISO/IEC 27001:2022, *Information security, cybersecurity and privacy protection: Information security management systems: Requirements*, Annex A control 8.24.", "anchors": ["ISO/IEC 27001:2022 Annex A control 8.24"]},
+ {"cite": "NIST. *SP 800-53 Rev. 5, Security and Privacy Controls for Information Systems and Organizations*, control SC-12 (Cryptographic Key Establishment and Management). September 2020. https://doi.org/10.6028/NIST.SP.800-53r5", "anchors": ["NIST SP 800-53 control SC-12"]},
+ {"cite": "CircleCI. \"CircleCI Incident Report for January 4, 2023 Security Incident.\" January 2023. https://circleci.com/blog/jan-4-2023-incident-report/", "anchors": ["In January 2023, CircleCI, a widely used continuous integration service, disclosed"]}
+]

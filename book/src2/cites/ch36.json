@@ -1,0 +1,130 @@
+[
+ {
+  "cite": "ISO/IEC. *ISO/IEC 11889:2015, Information technology: Trusted Platform Module library* (Parts 1-4); Trusted Computing Group. *TPM 2.0 Library Specification.* https://trustedcomputinggroup.org/resource/tpm-library-specification/ Also *TCG PC Client Platform Firmware Profile Specification* (PCR usage and the event log).",
+  "anchors": [
+   "published as ISO/IEC 11889"
+  ]
+ },
+ {
+  "cite": "UEFI Forum. *Unified Extensible Firmware Interface (UEFI) Specification*, Secure Boot and driver signing chapter. Accessed 2026. https://uefi.org/specifications",
+  "anchors": [
+   "In **UEFI Secure Boot**, firmware holds"
+  ]
+ },
+ {
+  "cite": "Microsoft. *Windows Secure Boot certificate expiration and CA updates* (guidance on the 2011 KEK, UEFI CA and Windows Production PCA certificates and their 2023 replacements). Accessed 2026. https://aka.ms/GetSecureBoot",
+  "anchors": [
+   "The Microsoft certificates that anchor Secure Boot on most PCs were issued in 2011 and expire in 2026"
+  ]
+ },
+ {
+  "cite": "Smolár, M. \"BlackLotus UEFI bootkit: Myth confirmed.\" ESET WeLiveSecurity, 1 March 2023. https://www.welivesecurity.com/2023/03/01/blacklotus-uefi-bootkit-myth-confirmed/",
+  "anchors": [
+   "The BlackLotus bootkit, analysed publicly by ESET in 2023"
+  ]
+ },
+ {
+  "cite": "Keylime project (CNCF). *Keylime documentation.* Accessed 2026. https://keylime.dev/",
+  "anchors": [
+   "**Keylime**, an open-source CNCF project"
+  ]
+ },
+ {
+  "cite": "Google. *Android Developers: Key and ID attestation* and *Hardware-backed Keystore* (StrongBox, Android 9). Accessed 2026. https://source.android.com/docs/security/features/keystore/attestation",
+  "anchors": [
+   "Since Android 9, devices may also offer **StrongBox**"
+  ]
+ },
+ {
+  "cite": "Apple. *Apple Platform Security* guide (Secure Enclave, Apple Pay secure element, Managed Device Attestation). Accessed 2026. https://support.apple.com/guide/security/",
+  "anchors": [
+   "**Apple Secure Enclave.**",
+   "Apple's Managed Device Attestation (iOS 16 and later)"
+  ]
+ },
+ {
+  "cite": "IETF ACME Working Group. *Automated Certificate Management Environment (ACME) Device Attestation Extension* (Internet-Draft, device-attest-01). Accessed 2026. https://datatracker.ietf.org/doc/draft-acme-device-attest/",
+  "anchors": [
+   "the IETF draft `device-attest-01` challenge"
+  ]
+ },
+ {
+  "cite": "IETF. *RFC 3161, Internet X.509 Public Key Infrastructure Time-Stamp Protocol (TSP).* 2001. https://www.rfc-editor.org/rfc/rfc3161",
+  "anchors": [
+   "using RFC 3161"
+  ]
+ },
+ {
+  "cite": "Apple. *Notarizing macOS software before distribution* (developer documentation). Accessed 2026. https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution",
+  "anchors": [
+   "Since macOS Catalina, such software must also be **notarised**"
+  ]
+ },
+ {
+  "cite": "Newman, Z., Meyers, J. S., Torres-Arias, S. \"Sigstore: Software Signing for Everybody.\" ACM CCS 2022; and Sigstore project documentation (cosign, Fulcio, Rekor). Accessed 2026. https://docs.sigstore.dev/",
+  "anchors": [
+   "**Sigstore** is an open-source project of the OpenSSF"
+  ]
+ },
+ {
+  "cite": "CA/Browser Forum. *Baseline Requirements for the Issuance and Management of Publicly-Trusted Code Signing Certificates*, Ballots CSC-13 and CSC-17 (private key protection effective 1 June 2023). https://cabforum.org/working-groups/code-signing/requirements/",
+  "anchors": [
+   "From **1 June 2023**, private keys for all publicly trusted code signing certificates"
+  ]
+ },
+ {
+  "cite": "CA/Browser Forum. *Ballot CSC-31: Maximum Validity Reduction* (adopted 17 November 2025, Code Signing BRs v3.10.0). https://cabforum.org/2025/11/17/ballot-csc-31-maximum-validity-reduction",
+  "anchors": [
+   "A further ballot cut maximum code signing certificate validity"
+  ]
+ },
+ {
+  "cite": "Microsoft. \"Trusted Signing is now Artifact Signing, and it's officially Generally Available.\" Microsoft Security Blog, 12 January 2026; and *Artifact Signing* product documentation. Accessed 2026. https://azure.microsoft.com/products/artifact-signing",
+  "anchors": [
+   "**Microsoft Artifact Signing** (named Trusted Signing until January 2026)"
+  ]
+ },
+ {
+  "cite": "NIST. *SP 800-218, Secure Software Development Framework (SSDF) Version 1.1.* February 2022. https://doi.org/10.6028/NIST.SP.800-218; and NIST SP 800-53 Rev. 5 controls SI-7 and CM-14.",
+  "anchors": [
+   "NIST SP 800-218 (Secure Software Development Framework)"
+  ]
+ },
+ {
+  "cite": "OpenSSF. *SLSA: Supply-chain Levels for Software Artifacts*, specification v1.0. Accessed 2026. https://slsa.dev/",
+  "anchors": [
+   "**SLSA** (Supply-chain Levels for Software Artifacts)"
+  ]
+ },
+ {
+  "cite": "IEEE. *IEEE Std 802.1AR-2018, Secure Device Identity.* 2018.",
+  "anchors": [
+   "**IEEE 802.1AR** (Secure Device Identity, current edition 2018)"
+  ]
+ },
+ {
+  "cite": "IETF. *RFC 7030, Enrollment over Secure Transport.* 2013. https://www.rfc-editor.org/rfc/rfc7030; *RFC 8995, Bootstrapping Remote Secure Key Infrastructure (BRSKI).* 2021. https://www.rfc-editor.org/rfc/rfc8995",
+  "anchors": [
+   "**BRSKI** (RFC 8995)"
+  ]
+ },
+ {
+  "cite": "IETF. *RFC 8894, Simple Certificate Enrolment Protocol.* 2020. https://www.rfc-editor.org/rfc/rfc8894",
+  "anchors": [
+   "published as RFC 8894 in 2020"
+  ]
+ },
+ {
+  "cite": "FireEye (Mandiant). \"Highly Evasive Attacker Leverages SolarWinds Supply Chain to Compromise Multiple Global Victims With SUNBURST Backdoor.\" 13 December 2020; CISA. *Emergency Directive 21-01, Mitigate SolarWinds Orion Code Compromise.* 13 December 2020. https://www.cisa.gov/news-events/directives/ed-21-01-mitigate-solarwinds-orion-code-compromise; SolarWinds Corporation. *Form 8-K*, filed with the US SEC, 14 December 2020.",
+  "anchors": [
+   "fewer than 18,000 customers had installed affected versions",
+   "CISA issued an emergency directive"
+  ]
+ },
+ {
+  "cite": "CrowdStrike Intelligence Team. \"SUNSPOT: An Implant in the Build Process.\" CrowdStrike blog, 11 January 2021. https://www.crowdstrike.com/blog/sunspot-malware-technical-analysis/",
+  "anchors": [
+   "CrowdStrike's analysis of SolarWinds' build server found an implant"
+  ]
+ }
+]
