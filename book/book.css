@@ -100,9 +100,10 @@ h3.sec .num { font-weight: 500; color: #777; margin-right: 8pt; }
 h4 { font: 700 12.8pt/1.25 'Fira Sans Condensed', sans-serif; margin: 15pt 0 5pt; break-after: avoid; }
 strong { font-weight: 650; }
 ul, ol { margin: 3pt 0 9pt; padding-left: 20pt; }
-li { margin: 2pt 0; }
+li { margin: 2pt 0; text-align: left; }
+li p { text-align: left; }
 li > p { margin-bottom: 3pt; }
-code { font: 9.8pt 'Ubuntu Mono', monospace; }
+code { font: 9.8pt 'Ubuntu Mono', monospace; overflow-wrap: anywhere; }
 pre { background: #f4f4f4; padding: 8pt 10pt; margin: 6pt 0 11pt; white-space: pre-wrap; word-break: break-word; break-inside: avoid; border-radius: 2pt; }
 pre code { font-size: 9.2pt; line-height: 1.4; }
 
