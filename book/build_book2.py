@@ -86,7 +86,9 @@ def add_citations(md, key):
 def render_body(ch, key):
     md = add_citations(ch["body"], ch["num"].zfill(2) if ch["num"].isdigit() else ch["num"])
     md = re.sub(r"^(\s*)- \[ \] ", r"\1- ☐ ", md, flags=re.M)
-    out = markdown.markdown(md, extensions=["tables", "fenced_code", "sane_lists"])
+    md = re.sub(r"\n\n(> \*\*(?:In practice|Current development|Watch out|At Meridian|Compliance hook)\.\*\*)", r"\n\n<!-- -->\n\n\1", md)
+    out = markdown.markdown(md, extensions=["tables", "pymdownx.superfences", "sane_lists"],
+                            extension_configs={"pymdownx.highlight": {"use_pygments": False}})
     # demote headings: chapter title is h2 (part is h1), sections h3, subsections h4
     out = re.sub(r"<(/?)h3>", r"<\1h4>", out)
     secs = []
