@@ -1,0 +1,18 @@
+[
+ {"cite": "Diffie, W., Hellman, M. E. \"New Directions in Cryptography.\" *IEEE Transactions on Information Theory* 22(6), 1976.", "anchors": ["Whitfield Diffie and Martin Hellman published"]},
+ {"cite": "Ellis, J. H. \"The History of Non-Secret Encryption.\" CESG, 1987, released by GCHQ in 1997.", "anchors": ["researchers at the UK's GCHQ had discovered the same idea secretly"]},
+ {"cite": "IETF. *RFC 7748, Elliptic Curves for Security.* 2016. https://www.rfc-editor.org/rfc/rfc7748; Bernstein, D. J. \"Curve25519: New Diffie-Hellman Speed Records.\" PKC 2006.", "anchors": ["**X25519**, defined in RFC 7748"]},
+ {"cite": "NIST. *SP 800-186, Recommendations for Discrete Logarithm-based Cryptography: Elliptic Curve Domain Parameters.* February 2023. https://doi.org/10.6028/NIST.SP.800-186", "anchors": ["(now allowed under SP 800-186)"]},
+ {"cite": "IETF. *RFC 8446, The Transport Layer Security (TLS) Protocol Version 1.3.* 2018. https://www.rfc-editor.org/rfc/rfc8446", "anchors": ["**TLS 1.3 requires ephemeral (EC)DH**"]},
+ {"cite": "ETSI. *TS 103 523-3, CYBER; Middlebox Security Protocol; Part 3: Profile for enterprise network and data centre access control* (Enterprise Transport Security). 2018. https://www.etsi.org/", "anchors": ["ETSI's **Enterprise Transport Security**"]},
+ {"cite": "IETF. *RFC 8031, Curve25519 and Curve448 for the Internet Key Exchange Protocol Version 2 (IKEv2) Key Agreement.* 2016. https://www.rfc-editor.org/rfc/rfc8031", "anchors": ["31 (Curve25519)"]},
+ {"cite": "Amazon Web Services. *AWS Key Management Service Developer Guide*, DeriveSharedSecret operation (product documentation). Accessed 2026. https://docs.aws.amazon.com/kms/", "anchors": ["AWS KMS offers a derive-shared-secret operation"]},
+ {"cite": "Adrian, D., Bhargavan, K., Durumeric, Z., et al. \"Imperfect Forward Secrecy: How Diffie-Hellman Fails in Practice.\" ACM CCS 2015. https://weakdh.org/", "anchors": ["In 2015, the **Logjam** research", "In May 2015, a team of 14 researchers published"]},
+ {"cite": "IETF. *RFC 7919, Negotiated Finite Field Diffie-Hellman Ephemeral Parameters for TLS.* 2016. https://www.rfc-editor.org/rfc/rfc7919", "anchors": ["(RFC 7919 for finite fields)"]},
+ {"cite": "Jager, T., Schwenk, J., Somorovsky, J. \"Practical Invalid Curve Attacks on TLS-ECDH.\" ESORICS 2015.", "anchors": ["In 2015, researchers demonstrated invalid-curve attacks"]},
+ {"cite": "NIST. *SP 800-56A Rev. 3, Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography.* April 2018. https://doi.org/10.6028/NIST.SP.800-56Ar3", "anchors": ["NIST SP 800-56A specifies these checks"]},
+ {"cite": "NIST. *SP 800-52 Rev. 2, Guidelines for the Selection, Configuration, and Use of Transport Layer Security (TLS) Implementations.* August 2019. https://doi.org/10.6028/NIST.SP.800-52r2", "anchors": ["NIST SP 800-52 Rev. 2 sets TLS group choices"]},
+ {"cite": "PCI Security Standards Council. *Payment Card Industry Data Security Standard v4.0.1.* June 2024. https://www.pcisecuritystandards.org/", "anchors": ["PCI DSS v4.0.1 requirement 4.2.1"]},
+ {"cite": "IETF. *RFC 9180, Hybrid Public Key Encryption.* 2022. https://www.rfc-editor.org/rfc/rfc9180", "anchors": ["(Hybrid Public Key Encryption, RFC 9180)"]},
+ {"cite": "Google Chrome team. Post-quantum key exchange (X25519MLKEM768) enabled by default in Chrome 131. Chromium Blog and Google Security Blog, 2024. https://security.googleblog.com/", "anchors": ["Since late 2024, Chrome, Edge and Firefox negotiate"]}
+]

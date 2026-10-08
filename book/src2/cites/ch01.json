@@ -1,0 +1,68 @@
+[
+ {
+  "cite": "Kerckhoffs, A. \"La cryptographie militaire.\" *Journal des sciences militaires*, vol. IX, 1883. The principle is paraphrased here.",
+  "anchors": [
+   "by the Dutch cryptographer Auguste Kerckhoffs in 1883"
+  ]
+ },
+ {
+  "cite": "NIST. *SP 800-57 Part 1 Rev. 5, Recommendation for Key Management: Part 1, General.* May 2020. https://doi.org/10.6028/NIST.SP.800-57pt1r5",
+  "anchors": [
+   "The values follow NIST guidance (SP 800-57)"
+  ]
+ },
+ {
+  "cite": "NIST. *IR 8547 (Initial Public Draft), Transition to Post-Quantum Cryptography Standards.* November 2024. https://doi.org/10.6028/NIST.IR.8547.ipd",
+  "anchors": [
+   "IR 8547, first published as a draft for comment in November 2024"
+  ]
+ },
+ {
+  "cite": "NIST. *FIPS 197, Advanced Encryption Standard (AES).* November 2001 (updated 2023). https://doi.org/10.6028/NIST.FIPS.197-upd1",
+  "anchors": [
+   "AES has been a standard since 2001"
+  ]
+ },
+ {
+  "cite": "US House of Representatives Committee on Oversight and Government Reform. *The Equifax Data Breach* (Majority Staff Report). December 2018.",
+  "anchors": [
+   "the congressional report found the company had let over 300 certificates expire"
+  ]
+ },
+ {
+  "cite": "Microsoft Security Response Center. \"Results of Major Technical Investigations for Storm-0558 Key Acquisition.\" September 2023. https://msrc.microsoft.com/blog/",
+  "anchors": [
+   "an actor that Microsoft tracks as Storm-0558"
+  ]
+ },
+ {
+  "cite": "Cyber Safety Review Board. *Review of the Summer 2023 Microsoft Exchange Online Intrusion.* US Department of Homeland Security, March 2024. https://www.cisa.gov/resources-tools/resources/CSRB-report-microsoft-exchange-online-intrusion",
+  "anchors": [
+   "The Cyber Safety Review Board's report describes a key created in 2016"
+  ]
+ },
+ {
+  "cite": "Debian Security Advisory DSA-1571-1, \"openssl: predictable random number generator\" (CVE-2008-0166). May 2008. https://www.debian.org/security/2008/dsa-1571",
+  "anchors": [
+   "When the flaw was found in May 2008"
+  ]
+ },
+ {
+  "cite": "PCI Security Standards Council. *Payment Card Industry Data Security Standard, Requirements and Testing Procedures, v4.0.1.* June 2024. https://www.pcisecuritystandards.org/",
+  "anchors": [
+   "PCI DSS v4.0.1 requires documented key-management procedures"
+  ]
+ },
+ {
+  "cite": "ISO/IEC. *ISO/IEC 27001:2022, Information security, cybersecurity and privacy protection: Information security management systems: Requirements.* Annex A, control 8.24 (Use of cryptography). 2022.",
+  "anchors": [
+   "ISO/IEC 27001:2022 control A.8.24"
+  ]
+ },
+ {
+  "cite": "European Commission. *Commission Delegated Regulation (EU) 2024/1774* supplementing Regulation (EU) 2022/2554 (DORA) with regulatory technical standards on ICT risk management, Articles 6 and 7. Official Journal of the EU, June 2024.",
+  "anchors": [
+   "EU financial entities must keep an encryption policy and a register of certificates"
+  ]
+ }
+]
