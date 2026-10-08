@@ -43,11 +43,38 @@ appendices = [parse(p) for p in sorted(glob.glob(f"{ROOT}/src/app*.md"))]
 SPECIAL = [
     ("Lab", "HANDS-ON LAB", "k-lab"), ("At work", "TOOLKIT", "k-work"), ("Failure story", "CASE STUDY", "k-case"),
     ("Chapter summary", "KEY TAKEAWAYS", "k-sum"), ("Review questions", "CHECK YOURSELF", "k-rev"),
-    ("Further reading", "GO DEEPER", "k-src"), ("Sources", "REFERENCES", "k-src"),
+    ("Further reading", "GO DEEPER", "k-src"), ("Sources", "REFERENCES", "k-src"), ("References", "REFERENCES", "k-src"),
 ]
 
+import citations
+MISSING = []
+
+def add_citations(md, key):
+    refs = citations.C.get(key, [])
+    if not refs:
+        return md
+    for i, (text, anchors) in enumerate(refs, start=1):
+        for a in anchors:
+            idx = -1
+            start = 0
+            while True:
+                j = md.find(a, start)
+                if j < 0:
+                    break
+                if md[:j].count("```") % 2 == 0 and md.rfind("<svg", 0, j) <= md.rfind("</svg>", 0, j):
+                    idx = j
+                    break
+                start = j + 1
+            if idx < 0:
+                MISSING.append((key, i, a))
+                continue
+            end = idx + len(a)
+            md = md[:end] + f'<sup class="cite">[{i}]</sup>' + md[end:]
+    md = md.rstrip() + "\n\n## References\n\n" + "\n".join(f"{i}. {t}" for i, (t, _) in enumerate(refs, start=1)) + "\n"
+    return md
+
 def render_body(ch, label):
-    md = ch["body"]
+    md = add_citations(ch["body"], ch["num"].zfill(2) if ch["num"].isdigit() else ch["num"])
     md = re.sub(r"^(\s*)- \[ \] ", r"\1- ☐ ", md, flags=re.M)
     out = markdown.markdown(md, extensions=["tables", "fenced_code", "sane_lists"])
     secs = []
@@ -134,7 +161,7 @@ for pnum, (roman, ptitle, pdesc) in PARTS.items():
     <div class="op-part-t">{html.escape(ptitle)}</div>
     <div class="op-label">{"APPENDIX" if is_app else "CHAPTER"}</div>
     <div class="op-num{' small' if len(c['num'])>1 else ''}">{c["num"]}</div>
-    <svg class="op-art" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><g fill="#ffd166">{''.join(f'<circle cx="{20+x*40+(y%2)*20}" cy="{20+y*40}" r="{3 if (x+y)%3 else 5}" opacity="{0.35 if (x+y)%3 else 0.9}"/>' for x in range(4) for y in range(5))}</g></svg>
+    <svg class="op-art" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><g fill="#ff5a6a">{''.join(f'<circle cx="{20+x*40+(y%2)*20}" cy="{20+y*40}" r="{3 if (x+y)%3 else 5}" opacity="{0.35 if (x+y)%3 else 0.9}"/>' for x in range(4) for y in range(5))}</g></svg>
   </div>
   <div class="op-main">
     <h1 class="op-title">{html.escape(c["title"])}</h1>
@@ -145,18 +172,24 @@ for pnum, (roman, ptitle, pdesc) in PARTS.items():
 </div>
 <main class="body" style="page: {pname}">{body}</main>''')
 
-css = open(f"{ROOT}/book.css").read() + "\n" + "\n".join(page_css)
+FONT_FACES = "".join(
+    f"@font-face {{ font-family: '{fam}'; src: url('file://{ROOT}/fonts/{fn}'); font-weight: {w}; font-style: {st}; }}\n"
+    for fam, fn, w, st in [
+        ("Crimson Pro", "CrimsonPro.ttf", "200 900", "normal"), ("Crimson Pro", "CrimsonPro-Italic.ttf", "200 900", "italic"),
+        ("Source Sans 3", "SourceSans3.ttf", "200 900", "normal"), ("Source Sans 3", "SourceSans3-Italic.ttf", "200 900", "italic"),
+        ("Ubuntu Mono", "UbuntuMono-Regular.ttf", "400", "normal"), ("Ubuntu Mono", "UbuntuMono-Bold.ttf", "700", "normal")])
+css = FONT_FACES + open(f"{ROOT}/book.css").read() + "\n" + "\n".join(page_css)
 
 lattice = "".join(
-    f'<circle cx="{40 + x*56 + (y*18) % 56}" cy="{30 + y*48}" r="{4 if (x*7+y*3) % 5 else 7}" fill="{"#ffd166" if (x*7+y*3) % 5 == 0 else "#7fb6c9"}" opacity="{0.95 if (x*7+y*3) % 5 == 0 else 0.45}"/>'
+    f'<circle cx="{40 + x*56 + (y*18) % 56}" cy="{30 + y*48}" r="{4 if (x*7+y*3) % 5 else 7}" fill="{"#ff5a6a" if (x*7+y*3) % 5 == 0 else "#9fb4d4"}" opacity="{0.95 if (x*7+y*3) % 5 == 0 else 0.45}"/>'
     for x in range(11) for y in range(7))
 
 doc = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><title>{TITLE}</title><style>{css}</style></head><body>
 
 <div class="cover">
   <svg class="cover-lattice" viewBox="0 0 640 330" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="#3d6f93" stroke-width="1" opacity="0.6">{''.join(f'<line x1="{40 + (y*18)%56}" y1="{30+y*48}" x2="{40+10*56+(y*18)%56}" y2="{30+y*48}"/>' for y in range(7))}</g>
-    <polyline points="58,30 152,78 226,126 338,174 410,222 522,270" fill="none" stroke="#ffd166" stroke-width="2.5" stroke-dasharray="7 6"/>
+    <g stroke="#2c4a73" stroke-width="1" opacity="0.6">{''.join(f'<line x1="{40 + (y*18)%56}" y1="{30+y*48}" x2="{40+10*56+(y*18)%56}" y2="{30+y*48}"/>' for y in range(7))}</g>
+    <polyline points="58,30 152,78 226,126 338,174 410,222 522,270" fill="none" stroke="#ff5a6a" stroke-width="2.5" stroke-dasharray="7 6"/>
     {lattice}
   </svg>
   <div class="cover-top">
@@ -180,7 +213,7 @@ doc = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><title>{TIT
 <div class="copyright">
   <p><b>{TITLE}</b><br>{SUBTITLE}</p>
   <p>Copyright © 2026 {AUTHOR}. All rights reserved.</p>
-  <p>This book describes general industry practice and publicly documented standards, incidents and research. It does not describe the systems, configuration or practices of any specific organisation. Product and company names mentioned for illustration belong to their respective owners, and their mention does not imply endorsement.</p>
+  <p>The text and diagrams in this book are original. Facts, data and research drawn from other works are attributed in the References section of each chapter. This book describes general industry practice and publicly documented standards, incidents and research. It does not describe the systems, configuration or practices of any specific organisation. Product and company names mentioned for illustration belong to their respective owners, and their mention does not imply endorsement.</p>
   <p>Standards, browser policies and regulatory timelines change frequently. Facts are current to October 2026; always confirm dates and requirements against the primary source before relying on them.</p>
   <p>{EDITION}</p>
 </div>
@@ -209,3 +242,4 @@ doc = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><title>{TIT
 os.makedirs(OUT, exist_ok=True)
 open(f"{OUT}/book.html", "w").write(doc)
 print(f"chapters={len(chapters)} appendices={len(appendices)}")
+for m in MISSING: print("MISSING ANCHOR", m)

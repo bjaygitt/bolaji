@@ -35,6 +35,10 @@ Most chapters end with a hands-on lab using free tools, a failure story drawn fr
 
 Cryptographic practice is changing faster now than at any time in the last twenty years. Public certificate lifetimes are shrinking toward 47 days. Browsers already use post-quantum key exchange for most connections. Governments have published deadlines for retiring RSA and elliptic-curve cryptography. Where this book cites a date, policy or statistic, it reflects the public record as of October 2026. Always check the primary source before relying on a date for a decision.
 
+## Sources and originality
+
+The text of this book is original writing. Where a chapter relies on a specific fact, statistic, date, incident, standard or research result, a bracketed number such as [3] points to the numbered References list at the end of that chapter. Ideas that are common knowledge in the field are not individually cited. Short phrases quoted from other authors are attributed where they appear, and well-known principles such as Kerckhoffs's are paraphrased, not quoted. All diagrams were drawn for this book. Configuration examples adapted from public guidance, such as Mozilla's Server Side TLS recommendations, are identified as such.
+
 ## Acknowledgements
 
 This book stands on the work of the researchers, standards bodies and open-source maintainers whose publications, specifications and incident reports are cited throughout. Any errors are mine.
