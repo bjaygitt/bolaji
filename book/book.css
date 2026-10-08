@@ -9,8 +9,10 @@
   @bottom-right  { content: ""; border-top: 0.6pt solid #555; margin-top: 0.22in; padding-top: 5pt; vertical-align: top; text-align: right;
                    font: 600 8.6pt 'Fira Sans Condensed', sans-serif; color: #111; }
 }
-@page :left  { margin-left: 0.7in; margin-right: 0.85in; }
-@page :right { margin-left: 0.85in; margin-right: 0.7in; }
+@page :left  { margin-left: 0.7in; margin-right: 0.85in;
+  @bottom-left { width: 100%; } @bottom-center { width: 0; border: none; } @bottom-right { width: 0; border: none; } }
+@page :right { margin-left: 0.85in; margin-right: 0.7in;
+  @bottom-left { width: 0; border: none; } @bottom-center { width: 0; border: none; } @bottom-right { width: 100%; } }
 @page front:left  { @bottom-left  { content: counter(page) "   |   Trust at Scale"; } }
 @page front:right { @bottom-right { content: "Trust at Scale   |   " counter(page); } }
 @page bare {

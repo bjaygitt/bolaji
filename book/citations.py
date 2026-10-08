@@ -261,7 +261,7 @@ C = {
  ("Kohnfelder, L., Garg, P. \"The Threats to Our Products.\" Microsoft internal paper, 1999 (origin of STRIDE); Shostack, A. *Threat Modeling: Designing for Security.* Wiley, 2014.", ["STRIDE (spoofing, tampering, repudiation"]),
  ("PCI Security Standards Council. *PCI DSS v4.0.1.* June 2024 (Requirement 12.3.3: inventory of cryptographic cipher suites and protocols).", ["| **PCI DSS v4.0.1** |"]),
  ("ISO/IEC 27001:2022, *Information security, cybersecurity and privacy protection: Information security management systems: Requirements*, Annex A control 8.24.", ["Control 8.24 \"Use of cryptography\""]),
- ("Regulation (EU) 2022/2554 (Digital Operational Resilience Act, DORA) and Directive (EU) 2022/2555 (NIS2).", ["DORA applies since January 2025"]),
+ ("Regulation (EU) 2022/2554 (Digital Operational Resilience Act, DORA) and Directive (EU) 2022/2555 (NIS2).", ["DORA has applied since January 2025"]),
  ("Regulation (EU) 2024/1183 amending Regulation (EU) No 910/2014 (eIDAS 2.0).", ["| **eIDAS 2.0** |"]),
  (CNSA2, ["| **CNSA 2.0** | US national security systems |"]),
  ("Greenberg, A. \"The Untold Story of NotPetya, the Most Devastating Cyberattack in History.\" *Wired*, August 2018 (citing the White House estimate of 10 billion US dollars in damage).", ["In June 2017, a destructive malware outbreak known as NotPetya"]),
@@ -285,7 +285,7 @@ C = {
 ],
 "26": [
  ("NIST. *NIST IR 8413, Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process.* July 2022.", ["In 2016, NIST launched an open competition"]),
- ("Castryck, W., Decru, T. \"An Efficient Key Recovery Attack on SIDH.\" EUROCRYPT 2023 (preprint July 2022).", ["one finalist, SIKE, which fell in 2022", "In July 2022, Wouter Castryck and Thomas Decru published an attack"]),
+ ("Castryck, W., Decru, T. \"An Efficient Key Recovery Attack on SIDH.\" EUROCRYPT 2023 (preprint July 2022).", ["SIKE, a fourth-round candidate, which fell in 2022", "In July 2022, Wouter Castryck and Thomas Decru published an attack"]),
  (FIPS203, ["| **FIPS 203** |", "| ML-KEM-512 | 1 (about AES-128) |"]),
  (FIPS204, ["| **FIPS 204** |", "| ML-DSA-44 | 2 |"]),
  (FIPS205, ["| **FIPS 205** |", "| SLH-DSA-128s (\"small\") |"]),

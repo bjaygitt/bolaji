@@ -146,7 +146,7 @@ for pnum, (roman, ptitle, pdesc) in PARTS.items():
         pname = f"pg{c['num']}"
         label = (f"Appendix {c['num']}" if is_app else f"Chapter {c['num']}")
         short = c["title"].split(":")[0]
-        if len(short) > 46: short = short[:46].rsplit(" ", 1)[0].rstrip(",") + "…"
+        if len(short) > 66: short = short[:66].rsplit(" ", 1)[0].rstrip(",") + "…"
         page_rule(pname, f"{label}: {short}", short)
         toc.append(f'<div class="toc-ch"><a href="#{cid}"><span class="n">{"" if is_app else c["num"] + "."}</span>'
                    f'<span class="t">{"Appendix " + c["num"] + ": " if is_app else ""}{html.escape(c["title"])}</span><span class="dots"></span><span class="p">{pg(cid)}</span></a></div>')
