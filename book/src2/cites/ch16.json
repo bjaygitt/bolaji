@@ -1,0 +1,134 @@
+[
+ {
+  "cite": "IETF. *RFC 4120, The Kerberos Network Authentication Service (V5).* 2005. https://www.rfc-editor.org/rfc/rfc4120 Also: IETF. *RFC 4556, Public Key Cryptography for Initial Authentication in Kerberos (PKINIT).* 2006. https://www.rfc-editor.org/rfc/rfc4556",
+  "anchors": [
+   "specified today in RFC 4120",
+   "**PKINIT** (RFC 4556)"
+  ]
+ },
+ {
+  "cite": "Microsoft. Windows Server blog and support guidance on retiring RC4 for Kerberos and moving domain controllers to AES-only defaults (January to July 2026 phases). Accessed 2026.",
+  "anchors": [
+   "During 2026 Microsoft moved domain controllers to AES-only defaults"
+  ]
+ },
+ {
+  "cite": "Duckwall, S., Delpy, B. \"Abusing Microsoft Kerberos: Sorry You Guys Don't Get It.\" Black Hat USA 2014. Also: Medin, T. \"Attacking Microsoft Kerberos: Kicking the Guard Dog of Hades.\" DerbyCon 2014.",
+  "anchors": [
+   "**Golden Ticket.**",
+   "**Kerberoasting.**"
+  ]
+ },
+ {
+  "cite": "OASIS. *Assertions and Protocols for the OASIS Security Assertion Markup Language (SAML) V2.0.* March 2005.",
+  "anchors": [
+   "**SAML 2.0**, standardised by OASIS in 2005"
+  ]
+ },
+ {
+  "cite": "Somorovsky, J., Mayer, A., Schwenk, J., Kampmann, M., Jensen, M. \"On Breaking SAML: Be Whoever You Want to Be.\" USENIX Security 2012.",
+  "anchors": [
+   "**signature wrapping attack**"
+  ]
+ },
+ {
+  "cite": "IETF. *RFC 6749, The OAuth 2.0 Authorization Framework.* 2012. https://www.rfc-editor.org/rfc/rfc6749 Also: IETF. *RFC 7636, Proof Key for Code Exchange by OAuth Public Clients.* 2015. https://www.rfc-editor.org/rfc/rfc7636",
+  "anchors": [
+   "**OAuth 2.0** (RFC 6749)",
+   "**PKCE** (Proof Key for Code Exchange, RFC 7636)"
+  ]
+ },
+ {
+  "cite": "IETF OAuth Working Group. *The OAuth 2.1 Authorization Framework* (Internet-Draft); RFC 9700, *Best Current Practice for OAuth 2.0 Security*, 2025. Also: IETF. *RFC 9449, OAuth 2.0 Demonstrating Proof of Possession (DPoP).* 2023. https://www.rfc-editor.org/rfc/rfc9449; RFC 8705, OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens, 2020.",
+  "anchors": [
+   "OAuth 2.1 consolidation of best practices",
+   "**DPoP** (RFC 9449)"
+  ]
+ },
+ {
+  "cite": "OpenID Foundation. *OpenID Connect Core 1.0* and *OpenID Connect Discovery 1.0.* https://openid.net/specs/openid-connect-core-1_0.html",
+  "anchors": [
+   "**OpenID Connect (OIDC)** adds an **ID token**",
+   "**discovery document** at"
+  ]
+ },
+ {
+  "cite": "IETF. *RFC 7519, JSON Web Token (JWT).* 2015. https://www.rfc-editor.org/rfc/rfc7519; RFC 7515, JSON Web Signature, and RFC 7517, JSON Web Key, 2015. Also: IETF. *RFC 8725, JSON Web Token Best Current Practices.* 2020. https://www.rfc-editor.org/rfc/rfc8725",
+  "anchors": [
+   "**JSON Web Tokens (JWT)**, RFC 7519",
+   "the JWT best-practice RFC 8725 was published in 2020"
+  ]
+ },
+ {
+  "cite": "McLean, T. \"Critical Vulnerabilities in JSON Web Token Libraries.\" March 2015.",
+  "anchors": [
+   "In 2015, security researcher Tim McLean reviewed popular JWT libraries"
+  ]
+ },
+ {
+  "cite": "Microsoft. *Signing key rollover in the Microsoft identity platform* and *Manage certificates for federated single sign-on in Microsoft Entra ID* (product documentation). Accessed 2026. https://learn.microsoft.com/ Also: Microsoft. *Microsoft Entra certificate-based authentication* (product documentation). Accessed 2026. https://learn.microsoft.com/",
+  "anchors": [
+   "| Microsoft Entra ID |",
+   "offers native certificate-based authentication"
+  ]
+ },
+ {
+  "cite": "Okta. *Key rotation* (developer documentation) and *Rotate signing keys* (help documentation). Accessed 2026. https://developer.okta.com/docs/concepts/key-rotation/",
+  "anchors": [
+   "| Okta |",
+   "Okta's documentation, for example, says there is no built-in event"
+  ]
+ },
+ {
+  "cite": "Ping Identity. PingFederate administration documentation: OAuth and OpenID Connect signing key rotation, and HSM integration. Accessed 2026. https://docs.pingidentity.com/",
+  "anchors": [
+   "| Ping Identity (PingFederate, PingOne) |"
+  ]
+ },
+ {
+  "cite": "US Cybersecurity and Infrastructure Security Agency. Alert AA21-008A, \"Detecting Post-Compromise Threat Activity in Microsoft Cloud Environments.\" January 2021; Reiner, S. \"Golden SAML: Newly Discovered Attack Technique Forges Authentication to Cloud Apps.\" CyberArk, 2017.",
+  "anchors": [
+   "a technique researchers named **Golden SAML**"
+  ]
+ },
+ {
+  "cite": "Microsoft Security Response Center. \"Results of Major Technical Investigations for Storm-0558 Key Acquisition.\" September 2023; Cyber Safety Review Board. *Review of the Summer 2023 Microsoft Exchange Online Intrusion.* March 2024. https://www.cisa.gov/resources-tools/resources/CSRB-report-microsoft-exchange-online-intrusion",
+  "anchors": [
+   "the government review board criticised the absence of automated rotation"
+  ]
+ },
+ {
+  "cite": "W3C. *Web Authentication: An API for Accessing Public Key Credentials, Level 2.* 2021; FIDO Alliance, CTAP 2 specifications and FIDO Metadata Service. https://fidoalliance.org/",
+  "anchors": [
+   "**FIDO2**, made up of the W3C **WebAuthn** browser API",
+   "FIDO Alliance Metadata Service"
+  ]
+ },
+ {
+  "cite": "US Office of Management and Budget. Memorandum M-22-09, *Moving the U.S. Government Toward Zero Trust Cybersecurity Principles.* January 2022. Also: NIST. *SP 800-63B, Digital Identity Guidelines: Authentication and Lifecycle Management*, and *Incorporating Syncable Authenticators into NIST SP 800-63B* (supplement), April 2024. https://pages.nist.gov/800-63-4/",
+  "anchors": [
+   "US federal guidance has required phishing-resistant multi-factor authentication for agency staff since 2022",
+   "a 2024 supplement recognised synced passkeys"
+  ]
+ },
+ {
+  "cite": "NIST. *FIPS 201-3, Personal Identity Verification (PIV) of Federal Employees and Contractors.* January 2022; NIST SP 800-73-4, Interfaces for Personal Identity Verification. Also: NIST. *SP 800-157, Guidelines for Derived Personal Identity Verification (PIV) Credentials.*",
+  "anchors": [
+   "defined in FIPS 201-3",
+   "standard slots",
+   "(NIST SP 800-157)"
+  ]
+ },
+ {
+  "cite": "Microsoft. *KB5014754: Certificate-based authentication changes on Windows domain controllers.* May 2022, with later revisions. https://support.microsoft.com/help/5014754; Lyak, O. \"Certifried: Active Directory Domain Privilege Escalation (CVE-2022-26923).\" 2022.",
+  "anchors": [
+   "In 2022 researchers showed that weak mappings"
+  ]
+ },
+ {
+  "cite": "PCI Security Standards Council. *Payment Card Industry Data Security Standard v4.0.1.* June 2024. https://www.pcisecuritystandards.org/",
+  "anchors": [
+   "PCI DSS v4.0.1 requirement 8.4.2"
+  ]
+ }
+]

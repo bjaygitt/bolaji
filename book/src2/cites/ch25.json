@@ -1,0 +1,153 @@
+[
+ {
+  "cite": "OpenSSH project. Release notes for OpenSSH 8.8 (September 2021), 9.0 (April 2022), 10.0 (April 2025) and 10.1 (October 2025). https://www.openssh.com/releasenotes.html",
+  "anchors": [
+   "version 10.0 in April 2025 made",
+   "OpenSSH 8.8 disabled",
+   "OpenSSH 10.1 added"
+  ]
+ },
+ {
+  "cite": "Bäumer, F., Brinkmann, M., Schwenk, J. \"Terrapin Attack: Breaking SSH Channel Integrity By Sequence Number Manipulation.\" USENIX Security Symposium 2024 (CVE-2023-48795). https://terrapin-attack.com/",
+  "anchors": [
+   "Terrapin attack"
+  ]
+ },
+ {
+  "cite": "OpenSSH project. *PROTOCOL.certkeys* and *ssh-keygen(1)* manual (certificates and key revocation lists). Accessed 2026. https://www.openssh.com/manual.html",
+  "anchors": [
+   "**key revocation lists (KRLs)**"
+  ]
+ },
+ {
+  "cite": "Ylönen, T., Turner, P., Scarfone, K., Souppaya, M. *NIST IR 7966, Security of Interactive and Automated Access Management Using Secure Shell (SSH).* NIST, 2015. https://doi.org/10.6028/NIST.IR.7966",
+  "anchors": [
+   "From around 2013, Tatu Ylönen"
+  ]
+ },
+ {
+  "cite": "Freund, A. \"backdoor in upstream xz/liblzma leading to ssh server compromise.\" oss-security mailing list, 29 March 2024 (CVE-2024-3094). https://www.openwall.com/lists/oss-security/2024/03/29/4",
+  "anchors": [
+   "backdoor in the xz compression library"
+  ]
+ },
+ {
+  "cite": "IETF. *RFC 3207, SMTP Service Extension for Secure SMTP over Transport Layer Security.* 2002. https://www.rfc-editor.org/rfc/rfc3207",
+  "anchors": [
+   "**STARTTLS** lets"
+  ]
+ },
+ {
+  "cite": "Durumeric, Z., Adrian, D., Mirian, A., et al. \"Neither Snow Nor Rain Nor MITM...: An Empirical Analysis of Email Delivery Security.\" ACM Internet Measurement Conference (IMC) 2015.",
+  "anchors": [
+   "Measurements published in 2015"
+  ]
+ },
+ {
+  "cite": "IETF. *RFC 8461, SMTP MTA Strict Transport Security (MTA-STS)* (2018), and *RFC 8460, SMTP TLS Reporting* (2018). https://www.rfc-editor.org/rfc/rfc8461",
+  "anchors": [
+   "**SMTP MTA Strict Transport Security (MTA-STS)**",
+   "**SMTP TLS Reporting (TLS-RPT)**"
+  ]
+ },
+ {
+  "cite": "IETF. *RFC 6698, The DNS-Based Authentication of Named Entities (DANE) Transport Layer Security (TLS) Protocol: TLSA* (2012), and *RFC 7672, SMTP Security via Opportunistic DANE TLS* (2015). https://www.rfc-editor.org/rfc/rfc7672",
+  "anchors": [
+   "**DANE** (DNS-Based"
+  ]
+ },
+ {
+  "cite": "IETF. *RFC 7208, Sender Policy Framework (SPF) for Authorizing Use of Domains in Email, Version 1.* 2014. https://www.rfc-editor.org/rfc/rfc7208",
+  "anchors": [
+   "**Sender Policy Framework (SPF)**"
+  ]
+ },
+ {
+  "cite": "IETF. *RFC 6376, DomainKeys Identified Mail (DKIM) Signatures* (2011); *RFC 8301, Cryptographic Algorithm and Key Usage Update to DKIM* (2018); *RFC 8463, A New Cryptographic Signature Method for DKIM* (2018). https://www.rfc-editor.org/rfc/rfc6376",
+  "anchors": [
+   "**DomainKeys Identified Mail (DKIM)**",
+   "RFC 8301 forbids",
+   "Ed25519 for DKIM is standardised"
+  ]
+ },
+ {
+  "cite": "IETF. *RFC 7489, Domain-based Message Authentication, Reporting, and Conformance (DMARC)* (2015), and *RFC 8617, The Authenticated Received Chain (ARC) Protocol* (2019). https://www.rfc-editor.org/rfc/rfc7489",
+  "anchors": [
+   "**Domain-based Message",
+   "**ARC** (Authenticated"
+  ]
+ },
+ {
+  "cite": "Google. *Email sender guidelines* (Gmail Help), and Yahoo Sender Hub sender requirements, effective February 2024. Accessed 2026. https://support.google.com/a/answer/81126",
+  "anchors": [
+   "Since February 2024, Google and Yahoo"
+  ]
+ },
+ {
+  "cite": "Zetter, K. \"How a Google Headhunter's E-Mail Unraveled a Massive Net Security Hole.\" *Wired*, October 2012.",
+  "anchors": [
+   "In 2012 a researcher"
+  ]
+ },
+ {
+  "cite": "IETF. *RFC 8551, Secure/Multipurpose Internet Mail Extensions (S/MIME) Version 4.0 Message Specification* (2019); CA/Browser Forum, *Baseline Requirements for the Issuance and Management of Publicly-Trusted S/MIME Certificates* (effective September 2023). https://www.rfc-editor.org/rfc/rfc8551",
+  "anchors": [
+   "S/MIME 4.0",
+   "S/MIME Baseline Requirements"
+  ]
+ },
+ {
+  "cite": "Marlinspike, M., Perrin, T. *The X3DH Key Agreement Protocol* and *The Double Ratchet Algorithm.* Signal specifications, 2016. https://signal.org/docs/",
+  "anchors": [
+   "This is **X3DH**"
+  ]
+ },
+ {
+  "cite": "Kret, E., Schmidt, R. *The PQXDH Key Agreement Protocol.* Signal specification, 2023. https://signal.org/docs/",
+  "anchors": [
+   "In 2023, Signal upgraded"
+  ]
+ },
+ {
+  "cite": "Signal. Announcement of the Sparse Post-Quantum Ratchet (SPQR) and triple ratchet design, October 2025. https://signal.org/blog/",
+  "anchors": [
+   "In October 2025, Signal announced"
+  ]
+ },
+ {
+  "cite": "Apple Security Engineering and Architecture. \"iMessage with PQ3: The new state of the art in quantum-secure messaging at scale.\" February 2024. https://security.apple.com/blog/",
+  "anchors": [
+   "PQ3, in 2024"
+  ]
+ },
+ {
+  "cite": "IETF. *RFC 9420, The Messaging Layer Security (MLS) Protocol.* 2023. https://www.rfc-editor.org/rfc/rfc9420",
+  "anchors": [
+   "standardised as RFC 9420 in 2023"
+  ]
+ },
+ {
+  "cite": "GSMA. \"RCS Encryption: A Leap Towards Secure and Interoperable Messaging\" (RCS Universal Profile 3.0 and RCS End-to-End Encryption Specification). March 2025. https://www.gsma.com/newsroom/",
+  "anchors": [
+   "RCS Universal Profile 3.0, published in March 2025"
+  ]
+ },
+ {
+  "cite": "Meta Engineering. \"Deploying key transparency at WhatsApp.\" April 2023. https://engineering.fb.com/",
+  "anchors": [
+   "WhatsApp announced key transparency in 2023"
+  ]
+ },
+ {
+  "cite": "US Securities and Exchange Commission. \"SEC Charges 16 Wall Street Firms with Widespread Recordkeeping Failures.\" Press release, September 2022, and subsequent off-channel communications actions. https://www.sec.gov/newsroom",
+  "anchors": [
+   "off-channel communications"
+  ]
+ },
+ {
+  "cite": "Rose, S., Nightingale, S., Garfinkel, S., Chandramouli, R. *NIST SP 800-177 Rev. 1, Trustworthy Email.* NIST, February 2019. https://doi.org/10.6028/NIST.SP.800-177r1",
+  "anchors": [
+   "NIST SP 800-177 Rev. 1"
+  ]
+ }
+]

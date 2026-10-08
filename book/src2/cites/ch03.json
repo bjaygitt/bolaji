@@ -1,0 +1,19 @@
+[
+ {"cite": "Shor, P. W. \"Polynomial-Time Algorithms for Prime Factorization and Discrete Logarithms on a Quantum Computer.\" *SIAM Journal on Computing* 26(5), 1997 (conference version 1994).", "anchors": ["**Shor's algorithm**"]},
+ {"cite": "Rabin, M. O. \"Probabilistic Algorithm for Testing Primality.\" *Journal of Number Theory* 12(1), 1980; Miller, G. L. \"Riemann's Hypothesis and Tests for Primality.\" 1976.", "anchors": ["such as Miller-Rabin"]},
+ {"cite": "Diffie, W., Hellman, M. E. \"New Directions in Cryptography.\" *IEEE Transactions on Information Theory* 22(6), 1976.", "anchors": ["Diffie-Hellman key exchange (Chapter 9) uses it like this"]},
+ {"cite": "Lim, C. H., Lee, P. J. \"A Key Recovery Attack on Discrete Log-based Schemes Using a Prime Order Subgroup.\" CRYPTO 1997.", "anchors": ["**small-subgroup attacks**"]},
+ {"cite": "IETF. *RFC 8446, The Transport Layer Security (TLS) Protocol Version 1.3.* 2018, section 4.2.7. https://www.rfc-editor.org/rfc/rfc8446", "anchors": ["TLS 1.3, for example, only allows a short list of named groups"]},
+ {"cite": "NIST. *SP 800-186, Recommendations for Discrete Logarithm-Based Cryptography: Elliptic Curve Domain Parameters.* February 2023. https://doi.org/10.6028/NIST.SP.800-186", "anchors": ["| P-256 (secp256r1, prime256v1) |", "NIST SP 800-186 lists the approved elliptic curves"]},
+ {"cite": "IETF. *RFC 7748, Elliptic Curves for Security.* 2016. https://www.rfc-editor.org/rfc/rfc7748", "anchors": ["| Curve25519 / X25519 |"]},
+ {"cite": "IETF. *RFC 8032, Edwards-Curve Digital Signature Algorithm (EdDSA).* 2017. https://www.rfc-editor.org/rfc/rfc8032", "anchors": ["| Ed25519 |"]},
+ {"cite": "Certicom Research. *SEC 2: Recommended Elliptic Curve Domain Parameters*, version 2.0. 2010. https://www.secg.org/sec2-v2.pdf", "anchors": ["secp256r1 is the name in the SEC standards"]},
+ {"cite": "NIST. *FIPS 186-5, Digital Signature Standard (DSS).* February 2023. https://doi.org/10.6028/NIST.FIPS.186-5", "anchors": ["FIPS 186-5 the approved signature algorithms and key sizes"]},
+ {"cite": "NIST. *SP 800-131A Rev. 2, Transitioning the Use of Cryptographic Algorithms and Key Lengths.* March 2019. https://doi.org/10.6028/NIST.SP.800-131Ar2", "anchors": ["SP 800-131A the transition rules that retire older sizes"]},
+ {"cite": "Regev, O. \"On Lattices, Learning with Errors, Random Linear Codes, and Cryptography.\" STOC 2005.", "anchors": ["**Learning With Errors (LWE)**"]},
+ {"cite": "NIST. *FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard.* August 2024. https://doi.org/10.6028/NIST.FIPS.203", "anchors": ["An ML-KEM-768 public key is 1,184 bytes"]},
+ {"cite": "NIST. *FIPS 204, Module-Lattice-Based Digital Signature Standard.* August 2024. https://doi.org/10.6028/NIST.FIPS.204", "anchors": ["an ML-DSA-65 signature is 3,309 bytes"]},
+ {"cite": "Nemec, M., Sys, M., Svenda, P., Klinec, D., Matyas, V. \"The Return of Coppersmith's Attack: Practical Factorization of Widely Used RSA Moduli.\" ACM CCS 2017. https://crocs.fi.muni.cz/public/papers/rsa_ccs17", "anchors": ["researchers from Masaryk University in the Czech Republic disclosed a flaw"]},
+ {"cite": "Coppersmith, D. \"Small Solutions to Polynomial Equations, and Low Exponent RSA Vulnerabilities.\" *Journal of Cryptology* 10(4), 1997.", "anchors": ["a known mathematical technique (Coppersmith's method)"]},
+ {"cite": "Republic of Estonia Information System Authority (RIA). Announcements on the ID-card security vulnerability and certificate suspension. November 2017. https://www.ria.ee/", "anchors": ["Estonia suspended the certificates on hundreds of thousands of ID cards"]}
+]
