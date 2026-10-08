@@ -134,3 +134,6 @@ sup.cite { font: 500 6.8pt 'Fira Sans Condensed', sans-serif; color: #555; verti
 h3.k-src + ol { font-size: 8.8pt; line-height: 1.4; }
 h3.k-src + ol li { margin: 2.5pt 0; word-break: break-word; text-align: left; }
 h3.k-src + ol p { text-align: left; }
+aside.co.meridian { background: #f3f5f8; border-top-color: #2e5274; border-bottom-color: #2e5274; }
+aside.co.meridian .co-label { color: #2e5274; }
+aside.co.comp { background: #f6f5f1; }

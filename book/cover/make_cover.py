@@ -157,3 +157,13 @@ svg {{ position:absolute; inset:0; width:7in; height:9.19in; }}
 </div></body></html>"""
 open(os.path.join(os.path.dirname(__file__), "cover.html"), "w").write(html)
 print("ok", len(dust), "dust marks")
+
+# fragment for embedding as the book's first page
+import re as _re
+css = _re.search(r"<style>(.*)</style>", html, _re.S).group(1)
+faces = "".join(_re.findall(r"@font-face \{[^}]*\}", css))
+rules = _re.sub(r"@font-face \{[^}]*\}|@page \{[^}]*\}|html,body \{[^}]*\}", "", css)
+scoped = _re.sub(r"(^|\})\s*([^{}@]+?)\s*\{", lambda m: m.group(1) + "\n" + ", ".join(".cv2 " + s.strip() for s in m.group(2).split(",")) + " {", rules)
+body = _re.search(r'<div class="page">(.*)</div></body>', html, _re.S).group(1)
+frag = f'<style>{faces}{scoped}\n.cv2 {{ page: bare; break-after: page; }}</style><div class="cv2"><div class="page">{body}</div></div>'
+open(os.path.join(os.path.dirname(__file__), "cover_frag.html"), "w").write(frag)
