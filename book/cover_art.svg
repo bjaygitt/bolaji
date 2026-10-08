@@ -1,0 +1,51 @@
+<svg viewBox="0 0 640 520" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+      <line x1="0" y1="0" x2="0" y2="5" stroke="#3a2a12" stroke-width="1.1" opacity="0.55"/>
+    </pattern>
+    <pattern id="hatch2" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(-40)">
+      <line x1="0" y1="0" x2="0" y2="4" stroke="#3a2a12" stroke-width="0.9" opacity="0.45"/>
+    </pattern>
+    <linearGradient id="brass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e2c36b"/><stop offset="0.55" stop-color="#c79a3a"/><stop offset="1" stop-color="#8f6a24"/>
+    </linearGradient>
+    <clipPath id="lowerBow"><rect x="0" y="300" width="400" height="200"/></clipPath>
+    <clipPath id="lowerShaft"><rect x="250" y="301" width="400" height="40"/></clipPath>
+  </defs>
+  <g transform="rotate(-28 320 280)" stroke="#2b2116" stroke-linejoin="round">
+    <!-- bow -->
+    <circle cx="165" cy="300" r="104" fill="url(#brass)" stroke-width="4"/>
+    <circle cx="165" cy="300" r="104" fill="url(#hatch)" stroke="none" clip-path="url(#lowerBow)"/>
+    <circle cx="165" cy="300" r="88" fill="none" stroke-width="1.6" opacity="0.8"/>
+    <circle cx="165" cy="300" r="60" fill="#ffffff" stroke-width="3.5"/>
+    <g fill="url(#brass)" stroke-width="2.5">
+      <circle cx="165" cy="262" r="22"/><circle cx="165" cy="338" r="22"/>
+      <circle cx="127" cy="300" r="22"/><circle cx="203" cy="300" r="22"/>
+    </g>
+    <circle cx="165" cy="300" r="14" fill="#ffffff" stroke-width="2.5"/>
+    <g fill="url(#hatch2)" stroke="none">
+      <circle cx="165" cy="338" r="22"/><circle cx="203" cy="300" r="22"/>
+    </g>
+    <g fill="none" stroke-width="1.2" opacity="0.7">
+      <path d="M 92 240 A 96 96 0 0 1 150 206"/><path d="M 84 262 A 96 96 0 0 1 112 222"/>
+    </g>
+    <!-- collar -->
+    <rect x="262" y="270" width="34" height="60" rx="7" fill="url(#brass)" stroke-width="3.5"/>
+    <rect x="296" y="278" width="20" height="44" rx="5" fill="url(#brass)" stroke-width="3"/>
+    <line x1="279" y1="272" x2="279" y2="328" stroke-width="1.4" opacity="0.7"/>
+    <!-- shaft -->
+    <rect x="314" y="286" width="250" height="28" rx="11" fill="url(#brass)" stroke-width="3.5"/>
+    <rect x="314" y="286" width="250" height="28" rx="11" fill="url(#hatch)" stroke="none" clip-path="url(#lowerShaft)"/>
+    <g stroke-width="1.2" opacity="0.75" fill="none">
+      <line x1="330" y1="293" x2="545" y2="293"/><line x1="340" y1="297" x2="470" y2="297"/>
+    </g>
+    <!-- bit -->
+    <path d="M 470 314 L 470 404 L 492 404 L 492 380 L 508 380 L 508 404 L 530 404 L 530 366 L 548 366 L 548 314 Z" fill="url(#brass)" stroke-width="3.5"/>
+    <path d="M 470 314 L 470 404 L 492 404 L 492 380 L 508 380 L 508 404 L 530 404 L 530 366 L 548 366 L 548 314 Z" fill="url(#hatch2)" stroke="none" opacity="0.8"/>
+    <g stroke-width="1.2" fill="none" opacity="0.7"><line x1="478" y1="322" x2="478" y2="396"/><line x1="519" y1="322" x2="519" y2="396"/></g>
+  </g>
+  <!-- ground shadow strokes -->
+  <g stroke="#2b2116" stroke-width="1" opacity="0.35">
+    <line x1="150" y1="478" x2="520" y2="478"/><line x1="190" y1="486" x2="470" y2="486"/><line x1="240" y1="494" x2="420" y2="494"/>
+  </g>
+</svg>

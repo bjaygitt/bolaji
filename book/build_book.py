@@ -68,174 +68,172 @@ def add_citations(md, key):
             if idx < 0:
                 MISSING.append((key, i, a))
                 continue
-            end = idx + len(a)
+            end = idx + len(a.rstrip(' |')) if a.endswith('|') else idx + len(a)
             md = md[:end] + f'<sup class="cite">[{i}]</sup>' + md[end:]
     md = md.rstrip() + "\n\n## References\n\n" + "\n".join(f"{i}. {t}" for i, (t, _) in enumerate(refs, start=1)) + "\n"
     return md
 
-def render_body(ch, label):
+def render_body(ch, key):
     md = add_citations(ch["body"], ch["num"].zfill(2) if ch["num"].isdigit() else ch["num"])
     md = re.sub(r"^(\s*)- \[ \] ", r"\1- ☐ ", md, flags=re.M)
     out = markdown.markdown(md, extensions=["tables", "fenced_code", "sane_lists"])
+    # demote headings: chapter title is h2 (part is h1), sections h3, subsections h4
+    out = re.sub(r"<(/?)h3>", r"<\1h4>", out)
     secs = []
     def h2(m):
         title = html.unescape(re.sub("<[^>]+>", "", m.group(1)))
+        sid = f"{key}-s{len(secs) + 1}"
+        mk = f'<span class="marker">@@{sid.upper().replace("-", "")}@@</span>'
         num = re.match(r"(\d+\.\d+|[A-Z]\.\d+)\s+(.*)", title)
-        if num:
-            secs.append((num.group(1), num.group(2)))
-            return (f'<h2 class="sec"><span class="num">{num.group(1)}</span>'
-                    f'<span class="ttl">{html.escape(num.group(2))}</span></h2>')
-        for key, kick, cls in SPECIAL:
-            if title.startswith(key):
-                return (f'<h2 class="sec special {cls}"><span class="kicker">{kick}</span>'
-                        f'<span class="ttl">{html.escape(title)}</span></h2>')
-        return f'<h2 class="sec"><span class="ttl">{html.escape(title)}</span></h2>'
+        label = num.group(2) if num else title
+        secs.append((sid, label))
+        numhtml = f'<span class="num">{num.group(1)}</span>' if num else ""
+        cls = "sec"
+        for k2, _, c2 in SPECIAL:
+            if title.startswith(k2):
+                cls += " special " + c2
+        return f'<h3 class="{cls}" id="{sid}">{mk}{numhtml}{html.escape(label)}</h3>'
     out = re.sub(r"<h2>(.*?)</h2>", h2, out)
     def bq(m):
         inner = m.group(1)
-        for key, cls, label_txt in [("In practice", "practice", "IN PRACTICE"),
-                                    ("Current development", "current", "CURRENT DEVELOPMENT"),
-                                    ("Watch out", "warn", "WATCH OUT")]:
-            pat = re.compile(r"<p><strong>" + key + r"\.?</strong>\.?\s*")
+        for k2, cls, lab in [("In practice", "practice", "In Practice"),
+                             ("Current development", "current", "Current Development"),
+                             ("Watch out", "warn", "Warning")]:
+            pat = re.compile(r"<p><strong>" + k2 + r"\.?</strong>\.?\s*")
             if pat.search(inner):
-                inner = pat.sub(f'<p><span class="co-label">{label_txt}</span> ', inner, count=1)
-                inner = inner.replace('<p><span class="co-label">' + label_txt + '</span> </p>',
-                                      f'<p class="co-label-only"><span class="co-label">{label_txt}</span></p>')
-                return f'<blockquote class="co {cls}">{inner}</blockquote>'
-        return f'<blockquote class="co def">{inner}</blockquote>'
+                inner = pat.sub("<p>", inner, count=1).replace("<p></p>", "")
+                return f'<aside class="co {cls}"><div class="co-label">{lab}</div>{inner}</aside>'
+        return f'<blockquote class="def">{inner}</blockquote>'
     out = re.sub(r"<blockquote>(.*?)</blockquote>", bq, out, flags=re.S)
-    out = re.sub(r"<p><strong>([^<]{2,90}\.)</strong>", r'<p class="term"><strong>\1</strong>', out) if ch.get("glossary") else out
+    if ch.get("glossary"):
+        out = re.sub(r"<p><strong>([^<]{2,90}\.)</strong>", r'<p class="term"><strong>\1</strong>', out)
     out = re.sub(r"<li>☐ ", '<li class="chk">', out)
-    out = out.replace("<table>", '<div class="tbl"><table>').replace("</table>", "</table></div>")
     return out, secs
 
 def pg(key):
-    p = PAGEMAP.get(key)
-    return f'<span class="pgn">{p}</span>' if p else '<span class="pgn"></span>'
+    p = PAGEMAP.get(key.upper().replace("-", ""))
+    return str(p) if p else ""
 
-# ---------- per-chapter page rules ----------
+def esc_css(s):
+    return s.replace("\\", "\\\\").replace('"', '\\"')
+
 page_css = []
-def page_rule(name, right, left):
-    right = right.replace('"', "'")
-    left = left.replace('"', "'")
-    page_css.append(f'@page {name} {{ @top-right {{ content: "{right}"; }} @bottom-left {{ content: "{left}"; }} }}')
+def page_rule(name, left_text, right_text):
+    page_css.append(
+        f'@page {name}:left {{ @bottom-left {{ content: counter(page) "   |   {esc_css(left_text)}"; }} }}\n'
+        f'@page {name}:right {{ @bottom-right {{ content: "{esc_css(right_text)}   |   " counter(page); }} }}')
 
-# ---------- content ----------
-parts_html = []
-toc_rows = []
+parts_html, toc = [], []
+toc.append(f'<div class="toc-ch top"><a href="#preface"><span class="t">Preface</span><span class="dots"></span><span class="p">{pg("PREFACE")}</span></a></div>')
 for pnum, (roman, ptitle, pdesc) in PARTS.items():
-    chs = [c for c in chapters if c["part"] == pnum]
-    apps = [a for a in appendices if a["part"] == pnum]
-    if not chs and not apps:
+    chs = [c for c in chapters if c["part"] == pnum] + [a for a in appendices if a["part"] == pnum]
+    if not chs:
         continue
-    pkey = f"P{pnum}"
-    toc_rows.append(f'<div class="toc-part"><span>Part {roman} · {html.escape(ptitle)}</span>{pg(pkey)}</div>')
-    items = "".join(f'<li><span class="n">{c["num"]}</span>{html.escape(c["title"])}</li>' for c in chs)
-    items += "".join(f'<li><span class="n">{a["num"]}</span>{html.escape(a["title"])}</li>' for a in apps)
-    parts_html.append(f'''
-<div class="partpage"><span class="marker">@@{pkey}@@</span>
-  <div class="pp-num">PART {roman}</div>
+    pid = f"part{pnum}"
+    toc.append(f'<div class="toc-part"><a href="#{pid}"><span class="pn">Part {roman}.</span><span class="t">{html.escape(ptitle)}</span><span class="p">{pg(pid)}</span></a></div>')
+    items = "".join(f'<li><a href="#ch{c["num"]}"><span class="n">{"Appendix " if not c["num"].isdigit() else ""}{c["num"]}</span>{html.escape(c["title"])}</a></li>' for c in chs)
+    parts_html.append(f"""
+<section class="partpage" id="{pid}"><span class="marker">@@{pid.upper()}@@</span>
+  <div class="pp-label">Part {roman}</div>
   <h1 class="pp-title">{html.escape(ptitle)}</h1>
   <p class="pp-desc">{html.escape(pdesc)}</p>
-  <div class="pp-in">In this part</div>
   <ol class="pp-list">{items}</ol>
-</div>''')
-    for c in chs + apps:
+</section>""")
+    for c in chs:
         is_app = not c["num"].isdigit()
-        key = f"C{c['num']}"
-        body, secs = render_body(c, c["num"])
-        pname = f"ch{c['num']}"
-        short = c["title"].split(":")[0]
-        if len(short) > 34: short = short[:34].rsplit(" ", 1)[0].rstrip(",") + "…"
-        right = (f"APPENDIX {c['num']}" if is_app else f"CHAPTER {c['num']}") + "  ·  " + short.upper()
-        page_rule(pname, right, f"Part {roman} · {ptitle}")
-        toc_rows.append(f'<div class="toc-ch"><span class="n">{c["num"]}</span><span class="t">{html.escape(c["title"])}</span>{pg(key)}</div>')
+        cid = f"ch{c['num']}"
+        body, secs = render_body(c, cid)
+        pname = f"pg{c['num']}"
+        label = (f"Appendix {c['num']}" if is_app else f"Chapter {c['num']}")
+        page_rule(pname, f"{label}: {c['title']}", c["title"])
+        toc.append(f'<div class="toc-ch"><a href="#{cid}"><span class="n">{"" if is_app else c["num"] + "."}</span>'
+                   f'<span class="t">{"Appendix " + c["num"] + ": " if is_app else ""}{html.escape(c["title"])}</span><span class="dots"></span><span class="p">{pg(cid)}</span></a></div>')
+        toc.append('<ul class="toc-secs">' + "".join(
+            f'<li><a href="#{sid}"><span class="t">{html.escape(t)}</span><span class="p">{pg(sid)}</span></a></li>' for sid, t in secs) + "</ul>")
         objectives = "".join(f"<li>{html.escape(o)}</li>" for o in c["objectives"])
-        sec_list = "".join(f'<li><span class="n">{n}</span>{html.escape(t)}</li>' for n, t in secs)
-        obj_box = (f'<div class="op-box"><div class="op-box-h">After this chapter you will be able to</div><ul>{objectives}</ul></div>'
-                   if objectives else "")
-        parts_html.append(f'''
-<div class="opener"><span class="marker">@@{key}@@</span>
-  <div class="op-side">
-    <div class="op-part">PART {roman}</div>
-    <div class="op-part-t">{html.escape(ptitle)}</div>
-    <div class="op-label">{"APPENDIX" if is_app else "CHAPTER"}</div>
-    <div class="op-num{' small' if len(c['num'])>1 else ''}">{c["num"]}</div>
-    <svg class="op-art" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><g fill="#ff5a6a">{''.join(f'<circle cx="{20+x*40+(y%2)*20}" cy="{20+y*40}" r="{3 if (x+y)%3 else 5}" opacity="{0.35 if (x+y)%3 else 0.9}"/>' for x in range(4) for y in range(5))}</g></svg>
-  </div>
-  <div class="op-main">
-    <h1 class="op-title">{html.escape(c["title"])}</h1>
-    <p class="op-lead">{html.escape(c.get("lead", ""))}</p>
-    {obj_box}
-    {'<div class="op-box-h plain">In this chapter</div><ol class="op-toc">' + sec_list + '</ol>' if sec_list else ''}
-  </div>
-</div>
-<main class="body" style="page: {pname}">{body}</main>''')
+        obj = (f'<div class="objectives"><p class="obj-h">By the end of this chapter, you will be able to:</p><ul>{objectives}</ul></div>'
+               if objectives else "")
+        parts_html.append(f"""
+<article class="chapter" id="{cid}" style="page: {pname}"><span class="marker">@@{cid.upper()}@@</span>
+  <header class="ch-head">
+    <div class="ch-label">{label}</div>
+    <h2 class="ch-title">{html.escape(c["title"])}</h2>
+  </header>
+  <p class="ch-lead">{html.escape(c.get("lead", ""))}</p>
+  {obj}
+  {body}
+</article>""")
 
-FONT_FACES = "".join(
-    f"@font-face {{ font-family: '{fam}'; src: url('file://{ROOT}/fonts/{fn}'); font-weight: {w}; font-style: {st}; }}\n"
-    for fam, fn, w, st in [
-        ("Crimson Pro", "CrimsonPro.ttf", "200 900", "normal"), ("Crimson Pro", "CrimsonPro-Italic.ttf", "200 900", "italic"),
-        ("Source Sans 3", "SourceSans3.ttf", "200 900", "normal"), ("Source Sans 3", "SourceSans3-Italic.ttf", "200 900", "italic"),
-        ("Ubuntu Mono", "UbuntuMono-Regular.ttf", "400", "normal"), ("Ubuntu Mono", "UbuntuMono-Bold.ttf", "700", "normal")])
+FONTS = [("Source Serif 4", "SourceSerif4.ttf", "200 900", "normal"), ("Source Serif 4", "SourceSerif4-Italic.ttf", "200 900", "italic"),
+         ("Fira Sans Condensed", "FiraSansCondensed-Regular.ttf", "400", "normal"), ("Fira Sans Condensed", "FiraSansCondensed-Medium.ttf", "500", "normal"),
+         ("Fira Sans Condensed", "FiraSansCondensed-SemiBold.ttf", "600", "normal"), ("Fira Sans Condensed", "FiraSansCondensed-Bold.ttf", "700", "normal"),
+         ("Outfit", "Outfit.ttf", "100 900", "normal"),
+         ("Ubuntu Mono", "UbuntuMono-Regular.ttf", "400", "normal"), ("Ubuntu Mono", "UbuntuMono-Bold.ttf", "700", "normal")]
+FONT_FACES = "".join(f"@font-face {{ font-family: '{f}'; src: url('file://{ROOT}/fonts/{fn}'); font-weight: {w}; font-style: {s}; }}\n" for f, fn, w, s in FONTS)
 css = FONT_FACES + open(f"{ROOT}/book.css").read() + "\n" + "\n".join(page_css)
 
-lattice = "".join(
-    f'<circle cx="{40 + x*56 + (y*18) % 56}" cy="{30 + y*48}" r="{4 if (x*7+y*3) % 5 else 7}" fill="{"#ff5a6a" if (x*7+y*3) % 5 == 0 else "#9fb4d4"}" opacity="{0.95 if (x*7+y*3) % 5 == 0 else 0.45}"/>'
-    for x in range(11) for y in range(7))
+preface_html = markdown.markdown(open(f"{ROOT}/src/preface.md").read(), extensions=["tables"])
+preface_html = re.sub(r"<(/?)h2>", r"<\1h3>", preface_html)
+key_svg = open(f"{ROOT}/cover_art.svg").read()
 
 doc = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><title>{TITLE}</title><style>{css}</style></head><body>
 
 <div class="cover">
-  <svg class="cover-lattice" viewBox="0 0 640 330" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="#2c4a73" stroke-width="1" opacity="0.6">{''.join(f'<line x1="{40 + (y*18)%56}" y1="{30+y*48}" x2="{40+10*56+(y*18)%56}" y2="{30+y*48}"/>' for y in range(7))}</g>
-    <polyline points="58,30 152,78 226,126 338,174 410,222 522,270" fill="none" stroke="#ff5a6a" stroke-width="2.5" stroke-dasharray="7 6"/>
-    {lattice}
-  </svg>
-  <div class="cover-top">
-    <div class="series">A PRACTITIONER'S TEXTBOOK</div>
-    <h1 class="book">{TITLE}</h1>
-    <p class="cover-sub">{SUBTITLE}</p>
-    <div class="cover-tags"><span>Cryptography</span><span>PKI</span><span>Key management</span><span>Secrets</span><span>HSMs</span><span>Post-quantum</span></div>
-  </div>
-  <div class="cover-author">{AUTHOR}</div>
-  <div class="cover-foot"><span>{EDITION}</span><span>Keys · Certificates · Secrets · Post-Quantum</span></div>
+  <div class="cv-series">A Practitioner's Guide</div>
+  <div class="cv-title">Trust<br>at Scale</div>
+  <div class="cv-sub">{SUBTITLE}</div>
+  <div class="cv-art">{key_svg}</div>
+  <div class="cv-author">{AUTHOR}</div>
 </div>
 
 <div class="titlepage">
   <div class="tp-title">{TITLE}</div>
   <div class="tp-sub">{SUBTITLE}</div>
-  <div class="tp-rule"></div>
   <div class="tp-author">{AUTHOR}</div>
-  <div class="tp-ed">{EDITION}</div>
 </div>
 
 <div class="copyright">
-  <p><b>{TITLE}</b><br>{SUBTITLE}</p>
+  <p><b>{TITLE}</b><br>{SUBTITLE}<br>by {AUTHOR}</p>
   <p>Copyright © 2026 {AUTHOR}. All rights reserved.</p>
   <p>The text and diagrams in this book are original. Facts, data and research drawn from other works are attributed in the References section of each chapter. This book describes general industry practice and publicly documented standards, incidents and research. It does not describe the systems, configuration or practices of any specific organisation. Product and company names mentioned for illustration belong to their respective owners, and their mention does not imply endorsement.</p>
   <p>Standards, browser policies and regulatory timelines change frequently. Facts are current to October 2026; always confirm dates and requirements against the primary source before relying on them.</p>
+  <p>Typeset in Source Serif 4, Fira Sans Condensed and Ubuntu Mono.</p>
   <p>{EDITION}</p>
 </div>
 
-<div class="front prose">
-  <h1 class="fm-h">Preface</h1>
-  {markdown.markdown(open(f"{ROOT}/src/preface.md").read(), extensions=["tables"])}
-</div>
+<section class="front toc-page">
+  <h1 class="fm-h">Table of Contents</h1>
+  {''.join(toc)}
+</section>
 
-<div class="front toc-page">
-  <div class="kicker-lg">CONTENTS</div>
-  <h1 class="toc-h">Contents</h1>
-  {''.join(toc_rows)}
-</div>
+<section class="front prose" id="preface"><span class="marker">@@PREFACE@@</span>
+  <h1 class="fm-h">Preface</h1>
+  {preface_html}
+</section>
 
 {''.join(parts_html)}
 
 <div class="backcover">
   <div class="bc-title">{TITLE}</div>
-  <p>Cryptography protects every login, payment, software update and private message, yet most engineers learn it in fragments. This book connects the fragments. It starts from the mathematics, builds through symmetric and public-key cryptography and real protocols, and arrives at the work that keeps organisations running: certificates and PKI, key and secret management, hardware security modules, and the migration to post-quantum cryptography already under way.</p>
-  <p>Every term is defined in plain words. Every chapter ends with labs, real failure stories and review questions, so you can turn understanding into practice.</p>
-  <div class="bc-author">{AUTHOR}</div>
+  <div class="bc-cols">
+    <div class="bc-main">
+      <p>Cryptography protects every login, payment, software update and private message, yet most engineers learn it in fragments: a TLS setting here, a certificate renewal there, an audit question about key storage that nobody can quite answer. This book connects the fragments.</p>
+      <p>Starting from the mathematics and building through symmetric and public-key cryptography, real protocols, certificates and PKI, key and secret management, and hardware security modules, it arrives at the most important change in the field for a generation: the migration to post-quantum cryptography already under way.</p>
+      <p>Every term is defined in plain words, and every chapter ends with hands-on labs, real failure stories and review questions.</p>
+      <ul>
+        <li>Understand how modern cryptography works and how it fails</li>
+        <li>Deploy TLS, SSH and identity protocols safely</li>
+        <li>Run certificates and private PKI at scale, with automation</li>
+        <li>Manage keys and secrets across their whole lifecycle</li>
+        <li>Choose and operate HSMs and key management services</li>
+        <li>Plan and lead a post-quantum migration</li>
+      </ul>
+    </div>
+    <div class="bc-side">
+      <div class="bc-box"><b>{AUTHOR}</b> is a security practitioner focused on applied cryptography, public key infrastructure and key management.</div>
+    </div>
+  </div>
+  <div class="bc-foot"><span>SECURITY / CRYPTOGRAPHY</span></div>
 </div>
 </body></html>"""
 
