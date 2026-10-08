@@ -7,7 +7,7 @@ Bolaji Akinyele
 
 | Item | Plan |
 |---|---|
-| Length | About 600 pages: 45 chapters in 11 parts, plus 5 appendices |
+| Length | About 650 pages: 47 chapters in 12 parts, plus 5 appendices |
 | Reader | An engineer becoming an architect who will design, run and defend enterprise cryptography programmes, and explain them to auditors and executives |
 | Spine | Every concept is explained from first principles, then connected to where it lives in a real enterprise, then shown in several real products |
 | Products | Many vendors shown side by side, based only on public documentation, dated "as of 2026". No single vendor stack is followed end to end |
@@ -57,37 +57,97 @@ Bolaji Akinyele
     - cloud private CAs (AWS Private CA, Google CAS, Azure options)
     - public CA enterprise accounts (DigiCert, Sectigo, GlobalSign, Entrust)
     - key ceremonies
-16. **Certificate Lifecycle Management at Scale** *(ch19, greatly expanded)*:
-    - discovery, inventory and ownership
-    - CLM platforms compared (CyberArk/Venafi, Keyfactor, AppViewX, DigiCert Trust Lifecycle, Sectigo CM)
-    - ACME, EST, SCEP and CMP
-    - integration patterns for load balancers, CDNs, firewalls, Kubernetes (cert-manager), Windows auto-enrolment and MDM
-17. **Enterprise Identity and Authentication Protocols** *(ch14, expanded)*: Kerberos and Active Directory, SAML, OAuth 2.0 and OIDC, JWT, FIDO2 passkeys, smart cards (PIV/CAC), client-certificate auth, and how identity providers (Entra ID, Okta, Ping) use keys.
+16. **Enterprise Identity and Authentication Protocols** *(ch14, expanded)*: Kerberos and Active Directory, SAML, OAuth 2.0 and OIDC, JWT, FIDO2 passkeys, smart cards (PIV/CAC), client-certificate auth, and how identity providers (Entra ID, Okta, Ping) use keys.
 
-## Part IV. Data in Transit
+## Part IV. Certificate Lifecycle Automation (standalone)
 
-18. **Building a Secure Channel with TLS 1.3** *(ch11)*
-19. **Deploying TLS in the Enterprise** *(ch12, expanded)*:
+This Part is written to stand alone: a certificate automation engineer can read these three chapters without the rest of the book. Each one covers both private enterprise networks and the public internet. Integrations are explained from public vendor documentation, with alternatives shown side by side.
+
+17. **Certificate Lifecycle Management: Foundations, Platforms and Protocols** *(new, absorbs 1st ed. ch19)*:
+    - **Why automate now:** the 200/100/47-day schedule, 10-day validation reuse, CA distrust events and outage economics
+    - **The lifecycle:** discovery, inventory, ownership, request, approval, issuance, installation, validation, monitoring, renewal, revocation, retirement
+    - **Discovery:** network scanning across private ranges and DMZs, CT-log monitoring for public names, CA account imports, cloud and Kubernetes API discovery, agents on hosts
+    - **The inventory data model:** certificate, key, endpoint, application, owner, environment, policy
+    - **Policy:** templates, approved CAs, key types and sizes, SAN rules, validity, and who may request what
+    - **Issuing CAs:**
+      - public CAs (DigiCert, Sectigo, GlobalSign, Entrust, Let's Encrypt and others), and how DV, OV and EV validation is automated, including DNS-01, CNAME delegation and DCV for many domains
+      - private CAs (AD CS, EJBCA, Vault PKI, step-ca, AWS Private CA, Google CAS, Azure options)
+    - **Enrolment protocols in depth:** ACME with External Account Binding and ARI, EST, SCEP, CMP, and CA REST APIs, with when to use each
+    - **Platform architecture:** central service, connectors, agents and agentless push, satellite or proxy components for segmented networks, RBAC, workflow and approvals, HSM-backed keys, high availability
+    - **Platforms compared:** CyberArk Certificate Manager (formerly Venafi), Keyfactor Command, AppViewX, DigiCert Trust Lifecycle Manager, Sectigo Certificate Manager and GlobalSign, against open-source options (cert-manager, certbot, acme.sh, Smallstep)
+    - **Where keys are generated:** on the device, centrally or in an HSM, and the security trade-offs of each
+18. **Integrating Certificate Automation Across the Enterprise Technology Stack** *(new)*:
+    - **Delivery patterns:**
+      - API push from the platform
+      - agent pull
+      - native ACME clients
+      - secret-store sync
+      - infrastructure as code (Ansible, Terraform)
+      - each with its trust and network-path implications
+    - **Public edge and CDN:** Akamai (CPS and Property Manager), Cloudflare (edge, custom and origin certificates), AWS CloudFront with ACM, Fastly; edge-issued versus customer-managed certificates; origin certificates and mTLS to origin
+    - **Load balancers and ADCs:** F5 BIG-IP (iControl REST, SSL profiles, HA pairs, keys in a FIPS module or network HSM), Citrix NetScaler, NGINX and HAProxy, AWS ALB/NLB, Azure Application Gateway and Front Door, Google Cloud load balancers
+    - **Network and security devices:** Palo Alto firewalls and Panorama (inbound and forward-proxy decryption certificates, GlobalProtect), Fortinet, Cisco ASA/FTD and ISE, Check Point, Zscaler; VPN gateway certificates; 802.1X, RADIUS and Wi-Fi server certificates
+    - **Platforms and containers:**
+      - Kubernetes with cert-manager (Issuers, ClusterIssuers, ACME, Vault, venafi and cloud issuers)
+      - OpenShift routes, the ingress controller, and its service CA
+      - Istio and SPIFFE workload certificates
+      - HashiCorp Vault PKI
+      - CI/CD pipelines
+    - **Windows and endpoints:** AD CS templates and auto-enrolment, Intune SCEP and PKCS connectors, Jamf, IIS and Exchange, RDP, macOS and mobile device certificates
+    - **Applications and middleware:** Java keystores and truststores (Tomcat, WebLogic, Kafka), IBM MQ, databases, mainframe
+    - **Cloud certificate services:** AWS ACM and Private CA, Azure Key Vault certificates and App Service, Google Certificate Manager and CAS, and how to integrate them with a central CLM platform
+    - **Private versus public networks:**
+      - split-horizon DNS
+      - reaching devices behind firewalls and in DMZs
+      - outbound-only connectors
+      - air-gapped and OT segments
+      - multi-cloud and on-premises hybrid designs
+19. **Operating Certificate Automation: Rollout, Troubleshooting and the Short-Lived Era** *(new)*:
+    - **The rollout programme:** phases, onboarding application owners, change management, CMDB integration
+    - **Post-installation validation:** chain, SAN, key match, OCSP and CRL reachability, cipher policy
+    - **Monitoring, alerting and KPIs:** coverage, automation rate, time-to-renew, expiry incidents
+    - **Failure modes and fixes:**
+      - missing intermediates
+      - old roots in Java and appliance truststores
+      - pinned certificates
+      - HA pairs updated on one node only
+      - CDN propagation delays
+      - HSM-backed keys that cannot be exported
+      - device API rate limits
+      - DCV failures
+    - **The troubleshooting toolkit:** openssl, curl, keytool, certutil, kubectl, and reading platform logs
+    - **Runbooks:** mass revocation and CA distrust, key compromise, emergency replacement at scale
+    - **Getting ready for 47-day certificates and ARI**
+    - **Audit evidence and compliance mapping:** PCI DSS 4.0.1 inventory requirement, NIST, ISO
+    - **PQC and hybrid certificates in CLM:** what to ask vendors now
+    - **Skills and career path** for a certificate automation engineer
+    - **Labs:** ACME with step-ca and DNS-01, cert-manager on a local Kubernetes cluster, and pushing a certificate to NGINX and HAProxy through an API
+
+
+## Part V. Data in Transit
+
+20. **Building a Secure Channel with TLS 1.3** *(ch11)*
+21. **Deploying TLS in the Enterprise** *(ch12, expanded)*:
     - where TLS terminates (CDN, WAF, load balancer, ingress, sidecar, app)
     - re-encryption versus passthrough
     - TLS inspection (Palo Alto, Zscaler, Netskope, F5 SSL Orchestrator) and its legal and privacy limits
     - cipher policy as code
     - mTLS
-20. **Private Networks: IPsec, MACsec, VPNs and Zero Trust** *(new, partly ch13)*:
+22. **Private Networks: IPsec, MACsec, VPNs and Zero Trust** *(new, partly ch13)*:
     - IKEv2/IPsec site-to-site
     - MPLS and SD-WAN encryption
     - MACsec on data-centre links and inter-DC fibre
     - remote access VPN versus ZTNA (Zscaler, Palo Alto Prisma, Cloudflare One)
     - WireGuard
     - enterprise Wi-Fi (WPA3-Enterprise, 802.1X, EAP-TLS) and NAC
-21. **The Public Internet and the Edge** *(new)*:
+23. **The Public Internet and the Edge** *(new)*:
     - CDN and WAF key custody (Akamai, Cloudflare, Fastly, CloudFront)
     - keyless SSL and edge HSMs
     - DNSSEC
     - BGP security and RPKI
     - DDoS and TLS
     - ECH and QUIC
-22. **Service-to-Service and Platform Encryption** *(new)*:
+24. **Service-to-Service and Platform Encryption** *(new)*:
     - Kubernetes and OpenShift
     - service meshes (Istio, Linkerd, Consul)
     - SPIFFE/SPIRE
@@ -95,69 +155,69 @@ Bolaji Akinyele
     - Kafka and message queues
     - database connections
     - mainframe and legacy protocols
-23. **SSH, Email and Secure Messaging** *(ch13, expanded)*: SSH certificates at scale; email (STARTTLS, MTA-STS, DANE, DKIM, S/MIME); Signal-style messaging.
+25. **SSH, Email and Secure Messaging** *(ch13, expanded)*: SSH certificates at scale; email (STARTTLS, MTA-STS, DANE, DKIM, S/MIME); Signal-style messaging.
 
-## Part V. Data at Rest
+## Part VI. Data at Rest
 
-24. **Storage Encryption** *(new)*:
+26. **Storage Encryption** *(new)*:
     - disks and laptops (BitLocker, FileVault, LUKS)
     - self-encrypting drives (OPAL)
     - SAN and NAS arrays (NetApp, Dell, Pure)
     - VMware and Hyper-V VM encryption
     - backup and tape (LTO)
     - cloud volume and object encryption options
-25. **Database and Application-Layer Encryption** *(new)*:
+27. **Database and Application-Layer Encryption** *(new)*:
     - TDE in Oracle, SQL Server, PostgreSQL and MySQL
     - column- and field-level encryption
     - SQL Server Always Encrypted, MongoDB Queryable Encryption
     - client-side and envelope encryption done right
     - tokenisation versus FPE
     - searchable encryption trade-offs
-26. **Cloud Key Management: KMS, BYOK, HYOK and EKM** *(ch21, expanded)*:
+28. **Cloud Key Management: KMS, BYOK, HYOK and EKM** *(ch21, expanded)*:
     - AWS KMS, Azure Key Vault and Managed HSM, Google Cloud KMS and EKM
     - Oracle and IBM options
     - multi-cloud key strategy
     - sovereignty and data residency
     - SaaS customer-managed keys (Microsoft 365, Salesforce Shield, ServiceNow)
-27. **Data-Centric Protection and Crypto-Shredding** *(new)*: file and document encryption, Microsoft Purview labels and rights management, email encryption, data lifecycle, retention, crypto-shredding and proving deletion.
+29. **Data-Centric Protection and Crypto-Shredding** *(new)*: file and document encryption, Microsoft Purview labels and rights management, email encryption, data lifecycle, retention, crypto-shredding and proving deletion.
 
-## Part VI. Data in Use
+## Part VII. Data in Use
 
-28. **Confidential Computing** *(ch23 part, expanded)*:
+30. **Confidential Computing** *(ch23 part, expanded)*:
     - Intel SGX and TDX, AMD SEV-SNP, Arm CCA
     - AWS Nitro Enclaves, Azure and GCP confidential VMs
     - attestation flows and key release
     - what it does and does not protect
-29. **Privacy-Enhancing Technologies** *(ch28, expanded)*: MPC, FHE, zero knowledge, differential privacy, data clean rooms, and where each is deployed in industry today.
+31. **Privacy-Enhancing Technologies** *(ch28, expanded)*: MPC, FHE, zero knowledge, differential privacy, data clean rooms, and where each is deployed in industry today.
 
-## Part VII. Key Management and Hardware
+## Part VIII. Key Management and Hardware
 
-30. **Key Management Fundamentals** *(ch20)*: NIST SP 800-57, lifecycles, crypto-periods and key hierarchies.
-31. **HSMs in the Enterprise** *(ch23, expanded)*:
+32. **Key Management Fundamentals** *(ch20)*: NIST SP 800-57, lifecycles, crypto-periods and key hierarchies.
+33. **HSMs in the Enterprise** *(ch23, expanded)*:
     - general-purpose HSMs (Thales Luna, Entrust nShield, Utimaco, Securosys, Marvell LiquidSecurity)
     - cloud HSMs
     - PKCS#11, JCE, CNG and KMIP
     - partitions, HA clusters, backup, firmware and FIPS mode
     - sizing and performance
-32. **Enterprise Key Managers and Integration** *(new)*: centralised key managers (Thales CipherTrust, Fortanix DSM, Entrust KeyControl, IBM GKLM), KMIP for storage and VMware, external key managers for cloud, and key brokering.
-33. **Secrets Management and Workload Identity** *(ch22)*: Vault, CyberArk Conjur and Secrets Hub, the cloud secret stores, and the PAM relationship.
-34. **Endpoints, Devices and Code Signing** *(new)*:
+34. **Enterprise Key Managers and Integration** *(new)*: centralised key managers (Thales CipherTrust, Fortanix DSM, Entrust KeyControl, IBM GKLM), KMIP for storage and VMware, external key managers for cloud, and key brokering.
+35. **Secrets Management and Workload Identity** *(ch22)*: Vault, CyberArk Conjur and Secrets Hub, the cloud secret stores, and the PAM relationship.
+36. **Endpoints, Devices and Code Signing** *(new)*:
     - TPM and secure/measured boot
     - code and firmware signing pipelines (Sigstore, Authenticode, HSM-backed signing)
     - mobile secure elements
     - IoT and OT device identity
     - MDM and SCEP
 
-## Part VIII. Payments Cryptography
+## Part IX. Payments Cryptography
 
-35. **How Card Payments Work, Cryptographically** *(new)*:
+37. **How Card Payments Work, Cryptographically** *(new)*:
     - the four-party model
     - EMV chip cryptograms (ARQC/ARPC)
     - PIN blocks and PIN translation
     - the key hierarchy (ZMK, ZPK, TMK, BDK)
     - DUKPT, TR-31 key blocks, TR-34 remote key loading
-36. **Payment HSMs and Payment Key Management** *(new)*: payment HSMs (Thales payShield, Futurex, Utimaco Atalla), cloud payment cryptography (AWS Payment Cryptography and others), key ceremonies, dual control and split knowledge, ANSI X9.24.
-37. **Payment Security Programmes** *(new)*:
+38. **Payment HSMs and Payment Key Management** *(new)*: payment HSMs (Thales payShield, Futurex, Utimaco Atalla), cloud payment cryptography (AWS Payment Cryptography and others), key ceremonies, dual control and split knowledge, ANSI X9.24.
+39. **Payment Security Programmes** *(new)*:
     - PCI DSS v4.0.1 cryptographic requirements
     - PCI PIN, P2PE and PTS HSM
     - tokenisation and network tokens
@@ -167,17 +227,17 @@ Bolaji Akinyele
     - real-time payments
     - open banking (FAPI, mTLS, signed requests)
 
-## Part IX. Governance, Risk and Compliance
+## Part X. Governance, Risk and Compliance
 
-38. **Standards and Validation** *(new, partly appendix B)*: how NIST, ISO/IEC, IETF, ETSI and ANSI X9 make standards; FIPS 140-3 and CMVP; Common Criteria; how to read a security policy and a certificate; what "FIPS compliant" really means.
-39. **Regulations and Frameworks Mapped to Cryptographic Controls** *(new)*:
+40. **Standards and Validation** *(new, partly appendix B)*: how NIST, ISO/IEC, IETF, ETSI and ANSI X9 make standards; FIPS 140-3 and CMVP; Common Criteria; how to read a security policy and a certificate; what "FIPS compliant" really means.
+41. **Regulations and Frameworks Mapped to Cryptographic Controls** *(new)*:
     - US: NIST SP 800-53, SP 800-131A, FedRAMP, CNSA 2.0, HIPAA, SOX, GLBA
     - international: ISO 27001 (A.8.24), SOC 2, CSA CCM
     - EU: GDPR, NIS2, DORA, eIDAS 2.0
     - UK NCSC
     - one crosswalk table for all of them
-40. **Cryptographic Architecture, Agility and Governance** *(ch24)*: policy, standards, approved-algorithm lists, the crypto centre of excellence, RACI, exceptions and threat modelling.
-41. **Running a Cryptography Programme** *(new)*:
+42. **Cryptographic Architecture, Agility and Governance** *(ch24)*: policy, standards, approved-algorithm lists, the crypto centre of excellence, RACI, exceptions and threat modelling.
+43. **Running a Cryptography Programme** *(new)*:
     - inventory and CBOM
     - metrics and KRIs
     - audit evidence
@@ -185,19 +245,19 @@ Bolaji Akinyele
     - incident playbooks (CA compromise, key leak, mass revocation, algorithm break)
     - budgeting and executive reporting
 
-## Part X. The Post-Quantum Transition
+## Part XI. The Post-Quantum Transition
 
-42. **The Quantum Threat** *(ch25)*
-43. **The New Algorithms: ML-KEM, ML-DSA, SLH-DSA and Beyond** *(ch26)*
-44. **Enterprise Post-Quantum Migration** *(ch27, expanded)*:
+44. **The Quantum Threat** *(ch25)*
+45. **The New Algorithms: ML-KEM, ML-DSA, SLH-DSA and Beyond** *(ch26)*
+46. **Enterprise Post-Quantum Migration** *(ch27, expanded)*:
     - vendor readiness by category (browsers, CDNs, load balancers, HSMs, KMS, CAs, VPNs)
     - payments and PQC
     - regulatory deadlines
     - a worked Meridian migration plan
 
-## Part XI. Bringing It Together
+## Part XII. Bringing It Together
 
-45. **One Transaction, End to End** *(new capstone)*: follow a Meridian customer's card payment from phone to CDN, WAF, load balancer, mesh, application, database, KMS, payment HSM, card network and back. Every key, certificate and protocol on the path, who owns it, how it is rotated, what auditors ask about it, and what breaks first.
+47. **One Transaction, End to End** *(new capstone)*: follow a Meridian customer's card payment from phone to CDN, WAF, load balancer, mesh, application, database, KMS, payment HSM, card network and back. Every key, certificate and protocol on the path, who owns it, how it is rotated, what auditors ask about it, and what breaks first.
 
 ## Appendices
 
