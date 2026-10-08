@@ -34,7 +34,7 @@ lead: The primary sources behind this book, grouped by topic, plus the best book
 
 ## B.3 Courses and practice
 
-- **Cryptopals** challenges: eight sets of hands-on attacks, from repeated-key XOR to padding oracles and ECDSA nonce reuse.
+- **Cryptopals** challenges: eight sets of hands-on attacks, from repeated-key XOR to padding oracles and (EC)DSA nonce attacks.
 - **CryptoHack**: browser-based challenges with a strong mathematics track.
 - **Dan Boneh's Cryptography I** (online course): the classic introduction to the theory.
 - **Real World Crypto** conference talks (free recordings): where industry and research meet each year.
@@ -48,6 +48,6 @@ lead: The primary sources behind this book, grouped by topic, plus the best book
 | NIST CSRC (Computer Security Resource Center) | Draft and final standards, comment periods, post-quantum updates |
 | CA/Browser Forum ballots and minutes | Changes to public certificate rules |
 | Root program announcements (Chrome, Mozilla, Apple, Microsoft) | Distrusts, new requirements, policy timelines |
-| IETF working groups (TLS, LAMPS, ACME, CFRG, PQUIP) | Protocol and format standards in progress |
+| IETF and IRTF working groups (TLS, LAMPS, ACME, CFRG, PQUIP) | Protocol and format standards in progress |
 | National agencies (NCSC, BSI, ANSSI, CISA, NSA) | Guidance and migration deadlines |
 | Let's Encrypt blog and community | Practical changes to the public PKI |
